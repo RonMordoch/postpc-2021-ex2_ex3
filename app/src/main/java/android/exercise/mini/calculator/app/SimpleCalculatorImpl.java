@@ -1,5 +1,6 @@
 package android.exercise.mini.calculator.app;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     private void evalHistory()
     {
         int prev = Integer.parseInt(history.get(0)), next = 0, i = 1; // get first number of history
-        String op = "";
+        String op = "", res = "";
         while (i < history.size()) {
             op = history.get(i);
             next = Integer.parseInt(history.get(i + 1));
@@ -70,10 +71,11 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
             i += 2;
         }
         // finished eval, update all fields
-        currChar = Integer.toString(prev);
-        history.clear(); // dont insert into history yet to allow chaining more digits
-        currNum = currChar;
-        output = currChar;
+        res = Integer.toString(prev);
+        history.clear(); // don't insert into history yet to allow chaining more digits
+        currChar = res.substring(res.length() - 1);
+        currNum = res;
+        output = res;
         state = States.DIGIT;
     }
 
@@ -121,23 +123,26 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     }
 
     @Override
-    public void insertDigit(int digit) throws IllegalArgumentException {
+    public void insertDigit(int digit) throws IllegalArgumentException
+    {
         if (!isValidDigit(digit))
         {
             throw new IllegalArgumentException();
         }
-        state = States.DIGIT;
-        currChar = Integer.toString(digit);
-        if (history.isEmpty()) // current output is "0"
+        String digitStr = Integer.toString(digit);
+        if (state != States.DIGIT)
         {
-            currNum = currChar; // save current digit to current number
-            output = currChar; // override the zero output
+            state = States.DIGIT;
         }
-        else  // append to current digit or end of operators
+        if (output.equals(ZERO)) // current output is "0"
         {
-            currNum += currChar;
-            output += currChar;
-        }
+            output = currNum = currChar = digitStr; // save current digit to current number
+//            output = currChar; // override the zero output
+            return;}
+        currChar = digitStr;
+        currNum += digitStr;
+        output += digitStr;
+
     }
 
 
@@ -181,9 +186,14 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
         if (state == States.OPERATOR) // necessarily move into digit state
         {
             deleteOperator();
-            return;
         }
-        deleteDigit(); // else, digit state
+        else {
+            deleteDigit(); // else, digit state
+        }
+        if (output.equals(ZERO))
+        {
+            state = null;
+        }
     }
 
     @Override
