@@ -91,7 +91,8 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
             next = Integer.parseInt(history.get(i + 1));
             prev = evalOp(prev, next, op);
             i += 2;
-        }  // finished eval, update all fields
+        }
+        // finished eval, update all fields
         res = Integer.toString(prev);
         history.clear(); // don't insert into history yet to allow chaining more digits
         currChar = res.substring(res.length() - 1);
@@ -165,7 +166,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
         state.currChar = this.currChar;
         state.currNum = this.currNum;
         state.output = this.output;
-        state.history = this.history;
+        state.history = new ArrayList<>(this.history);
         state.mode = this.mode;
         return state;
     }
@@ -179,7 +180,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
         this.currChar = casted.currChar;
         this.currNum = casted.currNum;
         this.output = casted.output;
-        this.history = casted.history;
+        this.history = new ArrayList<>(casted.history);
         this.mode = casted.mode;
     }
 
@@ -188,5 +189,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
         private List<String> history;
         private SimpleCalculatorImpl.Modes mode;
     }
+
 
 }
