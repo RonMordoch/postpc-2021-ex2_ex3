@@ -241,9 +241,12 @@ public class SimpleCalculatorImplTest
         calculatorUnderTest.insertPlus(); // 8+
         calculatorUnderTest.insertDigit(7); // 8+7
         calculatorUnderTest.insertEquals(); // 15
+        assertEquals("15", calculatorUnderTest.output());
         calculatorUnderTest.insertMinus(); // 15-
         calculatorUnderTest.insertDigit(5); // 15-5
         assertEquals("15-5", calculatorUnderTest.output());
+        calculatorUnderTest.insertEquals();
+        assertEquals("10", calculatorUnderTest.output());
     }
 
     @Test
@@ -341,5 +344,51 @@ public class SimpleCalculatorImplTest
         c1.insertEquals();
         assertEquals("0", c1.output());
     }
+
+
+    @Test
+    public void flowTest9()
+    {
+        SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
+        c1.insertDigit(5);
+        c1.insertPlus();
+        c1.deleteLast();
+        c1.insertDigit(2);
+        c1.insertEquals();
+        assertEquals("52", c1.output());
+    }
+
+    @Test
+    public void flowTest10()
+    {
+        SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
+        c1.insertDigit(5);
+        c1.insertPlus();
+        c1.deleteLast();
+        c1.insertPlus();
+        c1.insertEquals();
+        assertEquals("5", c1.output());
+    }
+
+    @Test
+    public void flowTest11()
+    {
+        SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
+        c1.insertMinus(); // 0-
+        c1.insertDigit(5); // 0-5
+        c1.insertDigit(5); // 0-55
+        c1.insertPlus();  // 0-55+
+        c1.insertDigit(1); // 0-55+1
+        c1.insertPlus(); // 0-55+1+
+        c1.insertDigit(9); // 0-55+1+9
+        c1.insertDigit(2); // 0-55+1+92
+        c1.insertDigit(5); // 0-55+1+925
+        c1.insertMinus(); // 0-55+1+925-
+        c1.insertDigit(7); // // 0-55+1+925-0
+        assertEquals("0-55+1+925-7", c1.output());
+        c1.insertEquals();
+        assertEquals("864", c1.output());
+    }
+
 
 }
