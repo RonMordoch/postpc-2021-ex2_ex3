@@ -8,15 +8,11 @@ import java.util.List;
 
 public class SimpleCalculatorImpl implements SimpleCalculator
 {
-
-
     private static final String PLUS = "+", MINUS = "-", ZERO = "0";
+    private enum Modes {OPERATOR, DIGIT}  // possible states of calculator - typing number or operators
+
     private String output = ZERO; // used for displaying string of history input
     private List<String> history = new ArrayList<>();  // saves the whole numbers typed and the operators
-
-    private enum Modes
-    {OPERATOR, DIGIT}  // possible states of calculator - typing number or operators
-
     private SimpleCalculatorImpl.Modes mode = Modes.DIGIT;
 
 
@@ -88,6 +84,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator
 
         while (i < history.size()) {
             currChar = history.get(i);
+
             if (isOperator(currChar)) {
                 if (opFound) {
                     lhs = evalOp(lhs, rhs, op);
@@ -172,7 +169,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator
 
     @Override
     public void deleteLast() {
-        if (output.equals(ZERO)) { // TODO or history.size == 1?
+        if (output.equals(ZERO)) {
             clear();
         }
         if (mode == Modes.OPERATOR) { // necessarily move into digit state
