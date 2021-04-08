@@ -110,6 +110,10 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
         } else { // remove the last operator, move into digit state
             deleteLast();
         }
+        if (history.isEmpty())
+        {
+            return;
+        }
         evalHistory();
     }
 

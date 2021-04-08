@@ -331,4 +331,15 @@ public class SimpleCalculatorImplTest
         assertEquals("20", c2.output());
     }
 
+    @Test
+    public void flowTest8()
+    {
+        SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
+        c1.insertDigit(0);
+        c1.insertPlus();
+        assertEquals("0+", c1.output());
+        c1.insertEquals();
+        assertEquals("0", c1.output());
+    }
+
 }
