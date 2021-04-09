@@ -13,15 +13,13 @@ public class SimpleCalculatorImplTest
 {
 
     @Test
-    public void when_noInputGiven_then_outputShouldBe0()
-    {
+    public void when_noInputGiven_then_outputShouldBe0() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         assertEquals("0", calculatorUnderTest.output());
     }
 
     @Test
-    public void when_inputIsPlus_then_outputShouldBe0Plus()
-    {
+    public void when_inputIsPlus_then_outputShouldBe0Plus() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertPlus();
         assertEquals("0+", calculatorUnderTest.output());
@@ -29,8 +27,7 @@ public class SimpleCalculatorImplTest
 
 
     @Test
-    public void when_inputIsMinus_then_outputShouldBeCorrect()
-    {
+    public void when_inputIsMinus_then_outputShouldBeCorrect() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertMinus();
         String expected = "0-";
@@ -38,24 +35,19 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void when_callingInsertDigitWithIllegalNumber_then_exceptionShouldBeThrown()
-    {
+    public void when_callingInsertDigitWithIllegalNumber_then_exceptionShouldBeThrown() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
-        try
-        {
+        try {
             calculatorUnderTest.insertDigit(357);
             fail("should throw an exception and not reach this line");
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             // good :)
         }
     }
 
 
     @Test
-    public void when_callingDeleteLast_then_lastOutputShouldBeDeleted()
-    {
-        // todo: implement test
+    public void when_callingDeleteLast_then_lastOutputShouldBeDeleted() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         // delete 0 remains 0
         calculatorUnderTest.deleteLast();
@@ -88,27 +80,25 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void when_callingClear_then_outputShouldBeCleared()
-    {
+    public void when_callingClear_then_outputShouldBeCleared() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
-        calculatorUnderTest.clear();
+        calculatorUnderTest.clear(); // 0
         assertEquals("0", calculatorUnderTest.output());
-        calculatorUnderTest.insertDigit(1);
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.clear();
+        calculatorUnderTest.insertDigit(1); // 1
+        calculatorUnderTest.insertPlus(); // 1+
+        calculatorUnderTest.clear(); // 0
         assertEquals("0", calculatorUnderTest.output());
-        calculatorUnderTest.insertDigit(1);
-        calculatorUnderTest.insertDigit(2);
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.insertDigit(9);
-        calculatorUnderTest.insertEquals();
-        calculatorUnderTest.clear();
+        calculatorUnderTest.insertDigit(1); // 1
+        calculatorUnderTest.insertDigit(2); // 12
+        calculatorUnderTest.insertPlus(); //12+
+        calculatorUnderTest.insertDigit(9); // 12+9
+        calculatorUnderTest.insertEquals(); // 21
+        calculatorUnderTest.clear(); // 0
         assertEquals("0", calculatorUnderTest.output());
     }
 
     @Test
-    public void when_savingState_should_loadThatStateCorrectly()
-    {
+    public void when_savingState_should_loadThatStateCorrectly() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         // give some input
         calculatorUnderTest.insertDigit(5);
@@ -129,8 +119,7 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void when_savingStateFromFirstCalculator_should_loadStateCorrectlyFromSecondCalculator()
-    {
+    public void when_savingStateFromFirstCalculator_should_loadStateCorrectlyFromSecondCalculator() {
         SimpleCalculatorImpl firstCalculator = new SimpleCalculatorImpl();
         SimpleCalculatorImpl secondCalculator = new SimpleCalculatorImpl();
         // give some input
@@ -156,45 +145,38 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void testInsertDigitInput()
-    {
+    public void testInsertDigitInput() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         boolean passed = false;
-        try
-        {
+        try {
             calculatorUnderTest.insertDigit('c');
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             passed = true;
         }
         assertTrue(passed);
         passed = false;
-        try
-        {
+        try {
             calculatorUnderTest.insertDigit(200);
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             passed = true;
         }
         assertTrue(passed);
     }
 
     @Test
-    public void testDoubleOperators()
-    {
+    public void testDoubleOperators() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.insertMinus();
+        calculatorUnderTest.insertPlus(); // 0+
+        calculatorUnderTest.insertMinus(); // 0+
         assertEquals("0+", calculatorUnderTest.output());
-        calculatorUnderTest.clear();
-        calculatorUnderTest.insertMinus();
-        calculatorUnderTest.insertPlus();
+        calculatorUnderTest.clear(); // 0
+        calculatorUnderTest.insertMinus(); // 0-
+        calculatorUnderTest.insertPlus(); // 0-
         assertEquals("0-", calculatorUnderTest.output());
     }
 
     @Test
-    public void testOperatorOnEquals()
-    {
+    public void testOperatorOnEquals() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertPlus(); // 0+
         calculatorUnderTest.insertDigit(9); // 0+9
@@ -204,8 +186,7 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void flowTest1()
-    {
+    public void flowTest1() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertDigit(5); // 5
         calculatorUnderTest.clear(); // 0
@@ -218,8 +199,7 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void flowTest2()
-    {
+    public void flowTest2() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertDigit(1); // 1
         calculatorUnderTest.insertDigit(2); // 12
@@ -234,8 +214,7 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void flowTest3()
-    {
+    public void flowTest3() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertDigit(8); // 8
         calculatorUnderTest.insertPlus(); // 8+
@@ -250,8 +229,7 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void flowTest4()
-    {
+    public void flowTest4() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
         calculatorUnderTest.insertDigit(9); // 9
         calculatorUnderTest.insertDigit(9); // 99
@@ -267,48 +245,45 @@ public class SimpleCalculatorImplTest
         calculatorUnderTest.insertDigit(2); // -11-2
         calculatorUnderTest.insertDigit(2); // -11-22
         assertEquals("-11-22", calculatorUnderTest.output());
-        calculatorUnderTest.insertEquals();
+        calculatorUnderTest.insertEquals(); // -33
         assertEquals("-33", calculatorUnderTest.output());
     }
 
     @Test
-    public void flowTest5()
-    {
+    public void flowTest5() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
-        calculatorUnderTest.insertDigit(7);
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.insertDigit(2);
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.deleteLast();
-        calculatorUnderTest.deleteLast();
+        calculatorUnderTest.insertDigit(7); // 7
+        calculatorUnderTest.insertPlus(); // 7+
+        calculatorUnderTest.insertDigit(2); // 7+2
+        calculatorUnderTest.insertPlus(); // 7+2+
+        calculatorUnderTest.deleteLast(); // 7+2
+        calculatorUnderTest.deleteLast(); // 7+
         assertEquals("7+", calculatorUnderTest.output());
     }
 
     @Test
-    public void flowTest6()
-    {
+    public void flowTest6() {
         SimpleCalculatorImpl calculatorUnderTest = new SimpleCalculatorImpl();
-        calculatorUnderTest.insertDigit(1);
-        calculatorUnderTest.insertDigit(2);
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.insertDigit(3);
-        calculatorUnderTest.insertMinus();
-        calculatorUnderTest.deleteLast();
-        calculatorUnderTest.deleteLast();
-        calculatorUnderTest.deleteLast();
-        calculatorUnderTest.deleteLast();
-        calculatorUnderTest.insertDigit(5);
-        calculatorUnderTest.insertEquals();
-        calculatorUnderTest.insertPlus();
-        calculatorUnderTest.insertDigit(3);
+        calculatorUnderTest.insertDigit(1); // 1
+        calculatorUnderTest.insertDigit(2); // 12
+        calculatorUnderTest.insertPlus(); // 12+
+        calculatorUnderTest.insertDigit(3); // 12+3
+        calculatorUnderTest.insertMinus(); // 12+3-
+        calculatorUnderTest.deleteLast(); // 12+3
+        calculatorUnderTest.deleteLast(); // 12+
+        calculatorUnderTest.deleteLast(); // 12
+        calculatorUnderTest.deleteLast(); // 1
+        calculatorUnderTest.insertDigit(5); // 15
+        calculatorUnderTest.insertEquals(); // 15
+        calculatorUnderTest.insertPlus(); // 15+
+        calculatorUnderTest.insertDigit(3); // 15+3
         assertEquals("15+3", calculatorUnderTest.output());
-        calculatorUnderTest.insertEquals();
+        calculatorUnderTest.insertEquals(); // 18
         assertEquals("18", calculatorUnderTest.output());
     }
 
     @Test
-    public void flowTest7()
-    {
+    public void flowTest7() {
         SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
         c1.insertDigit(1); // c1 1
         c1.insertDigit(2); // c1 12
@@ -335,44 +310,40 @@ public class SimpleCalculatorImplTest
     }
 
     @Test
-    public void flowTest8()
-    {
+    public void flowTest8() {
         SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
-        c1.insertDigit(0);
-        c1.insertPlus();
+        c1.insertDigit(0); // 0
+        c1.insertPlus(); // 0+
         assertEquals("0+", c1.output());
-        c1.insertEquals();
+        c1.insertEquals(); // 0
         assertEquals("0", c1.output());
     }
 
 
     @Test
-    public void flowTest9()
-    {
+    public void flowTest9() {
         SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
-        c1.insertDigit(5);
-        c1.insertPlus();
-        c1.deleteLast();
-        c1.insertDigit(2);
-        c1.insertEquals();
+        c1.insertDigit(5); // 5
+        c1.insertPlus(); // 5+
+        c1.deleteLast(); // 5
+        c1.insertDigit(2); // 52
+        c1.insertEquals(); // 52
         assertEquals("52", c1.output());
     }
 
     @Test
-    public void flowTest10()
-    {
+    public void flowTest10() {
         SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
-        c1.insertDigit(5);
-        c1.insertPlus();
-        c1.deleteLast();
-        c1.insertPlus();
-        c1.insertEquals();
+        c1.insertDigit(5); // 5
+        c1.insertPlus(); // 5+
+        c1.deleteLast(); // 5
+        c1.insertPlus(); // 5+
+        c1.insertEquals(); // 5
         assertEquals("5", c1.output());
     }
 
     @Test
-    public void flowTest11()
-    {
+    public void flowTest11() {
         SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
         c1.insertMinus(); // 0-
         c1.insertDigit(5); // 0-5
