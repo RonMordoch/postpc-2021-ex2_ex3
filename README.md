@@ -19,4 +19,4 @@ such as '1+3x2', input which tests the validity of zero multiplication such as '
 validation tests.
 To test the activity we can create a mock calculator and verify that the activity indeed called
 the 'insertMult' method on the calculator instance.
-To test the app we will run flow tests with the new method we impelemented for multiplication.
+To test the app we will run flow tests with the new method we implemented for multiplication.
