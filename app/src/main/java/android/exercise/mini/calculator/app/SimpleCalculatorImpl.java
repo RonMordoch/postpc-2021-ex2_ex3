@@ -9,7 +9,9 @@ import java.util.List;
 public class SimpleCalculatorImpl implements SimpleCalculator
 {
     private static final String PLUS = "+", MINUS = "-", ZERO = "0";
-    private enum Modes {OPERATOR, DIGIT}  // possible states of calculator - typing number or operators
+
+    private enum Modes
+    {OPERATOR, DIGIT}  // possible states of calculator - typing number or operators
 
     private String output = ZERO; // used for displaying string of history input
     private List<String> history = new ArrayList<>();  // saves the whole numbers typed and the operators
@@ -112,7 +114,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator
             }
             i++;
         }
-        if (opFound) {
+        if (opFound) { // for history with only one operator between 2 numbers, else evaluates with 0
             lhs = evalOp(lhs, rhs, op);
         }
         output = Integer.toString(lhs);
