@@ -104,12 +104,22 @@ public class SimpleCalculatorImpl implements SimpleCalculator
                 if (opFound) // add to rhs
                 {
                     rhs *= 10;
-                    rhs += currDigit;
+                    if (rhs >= 0) {
+                        rhs += currDigit;
+                    }
+                    else {
+                        rhs -= currDigit;
+                    }
                 }
                 else // add to lhs
-                {
+                { // also for subsequent calls on insertEquals¶
                     lhs *= 10;
-                    lhs += currDigit; // also for subsequent calls on insertEquals
+                    if (lhs >= 0) {
+                        lhs += currDigit;
+                    }
+                    else {
+                        lhs -= currDigit;
+                    }
                 }
             }
             i++;
@@ -155,13 +165,15 @@ public class SimpleCalculatorImpl implements SimpleCalculator
             output = output.substring(0, output.length() - 1);
             history.clear();
             history.add(output);
-            return;
+//            return;
 
         }
-        // else, we have a number after previous entries, might be single digit or multiple digit number
-        output = output.substring(0, output.length() - 1); // remove digit from output
-        if (!history.isEmpty()) {
-            history.remove(history.size() - 1); // remove the previous number from history
+        else {
+            // else, we have a number after previous entries, might be single digit or multiple digit number
+            output = output.substring(0, output.length() - 1); // remove digit from output
+            if (!history.isEmpty()) {
+                history.remove(history.size() - 1); // remove the previous number from history
+            }
         }
         if (isOperator(history.get(history.size() - 1))) {
             mode = Modes.OPERATOR;

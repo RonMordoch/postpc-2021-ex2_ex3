@@ -361,5 +361,42 @@ public class SimpleCalculatorImplTest
         assertEquals("864", c1.output());
     }
 
+    @Test
+    public void flowTest12() {
+        SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
+        c1.insertDigit(1); // 1
+        c1.insertDigit(0); // 10
+        c1.insertMinus(); // 10-
+        c1.insertDigit(2); // 10-2
+        c1.insertDigit(0); // 10-20
+        c1.insertEquals(); // -10
+        c1.deleteLast(); // -1
+        c1.deleteLast(); // -
+        c1.insertPlus(); // -
+        assertEquals("-", c1.output());
+        c1.insertDigit(5); // -5
+        c1.insertPlus(); // -5+
+        c1.insertDigit(3); // -5+3
+        c1.insertEquals(); // -2
+        assertEquals("-2", c1.output());
+    }
+
+    @Test
+    public void flowTest13()
+    {
+        SimpleCalculatorImpl c1 = new SimpleCalculatorImpl();
+        c1.insertDigit(5); // 5
+        c1.insertMinus(); // 5-
+        c1.insertDigit(1); // 5-1
+        c1.insertDigit(0); // 5-10
+        c1.insertEquals(); // -5
+        c1.insertEquals(); // -5
+        assertEquals("-5", c1.output());
+        c1.insertDigit(6); // -56
+        assertEquals("-56", c1.output());
+        c1.insertEquals(); // -56
+        c1.insertEquals(); // -56
+        assertEquals("-56", c1.output());
+    }
 
 }
