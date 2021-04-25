@@ -165,8 +165,6 @@ public class SimpleCalculatorImpl implements SimpleCalculator
             output = output.substring(0, output.length() - 1);
             history.clear();
             history.add(output);
-//            return;
-
         }
         else {
             // else, we have a number after previous entries, might be single digit or multiple digit number

@@ -2,7 +2,7 @@ package android.exercise.mini.calculator.app;
 
 import java.io.Serializable;
 
-public interface SimpleCalculator {
+public interface SimpleCalculator extends Serializable {
 
   /**
    @return the current output that should be shown.
